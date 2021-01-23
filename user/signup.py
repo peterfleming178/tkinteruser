@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from firebase import firebase
+from .firebase import firebase
 import urllib
 import requests
 import json
@@ -136,7 +136,13 @@ def signup():
 	check.bind("<Down>",lambda event: setfocus(signup))
 
 	signup.bind("<Up>",lambda event: setfocus(check))
-	signup.bind("<Return>",_signup_)
+	def signup_(arg=None):
+		global disabled
+		if disabled == True:
+			messagebox.showinfo("Failed","Please agree to the terms to sign up")
+		else:
+			_signup_()
+	signup.bind("<Return>",signup_)
 
 	window.mainloop()
 
