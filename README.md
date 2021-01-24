@@ -6,7 +6,7 @@ A user management gui with tkinter and firebase backend for python. Manage user 
 * pycryptodomex
 
 # Usage
-Config the ```firebase.py``` with your firebase key and then run ```sign.py``` for sign in and  ```signup.py``` for signup.py .
+Config the ```firebase.py``` with your firebase key and then run ```signin.py``` for sign in and  ```signup.py``` for signup.py .
 
 # Project Status
 Project not yet completed 
