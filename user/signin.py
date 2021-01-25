@@ -4,10 +4,11 @@ from tkinter import messagebox
 import urllib
 import requests
 import json
+from encryption import encrypt
 
 
 
-def signin():
+def signin(signup=None):
 	auth = firebase.init()
 
 	def checkconn():
@@ -17,7 +18,7 @@ def signin():
 		except: 
 			return False
 
-	window = tk.Tk()
+	window = tk.Toplevel()
 	window.config(bg="white")
 	window.resizable(False,False)
 	window.attributes('-topmost', True)
@@ -52,6 +53,8 @@ def signin():
 					try:
 						firebase.signin(auth=auth,email=str(email.get()),password=str(password.get()))
 						window.destroy()
+						data = [_email_,_password_]
+						return data
 						
 					except:
 						messagebox.showerror("Alert","Couldn't sign in check your email and password and please try again")
@@ -94,8 +97,23 @@ def signin():
 	reset_.grid(row=3,column=1,pady=(0,20),padx=20)
 	reset_.bind("<Button-1>",reset)
 
-	signin = tk.Button(window,font=(font,16),text="Sign In",command=_signin_)
-	signin.grid(row=4,column=0,columnspan=2,pady=20)
+	def signin_(arg=None):
+		 data = _signin_()
+		 data = {"email":encrypt(data[0]),"password":encrypt(data[1])}
+		 file = open("henrymolar.settings","w")
+		 json.dump(data,file)
+
+
+	signin = tk.Button(window,font=(font,16),text="Sign In",command=signin_)
+	signin.grid(row=4,column=0,columnspan=2,pady=(20,0))
+	
+	def __signin__(arg=None):
+		window.destroy()
+		signup()
+
+	signup_ = tk.Label(window,text="or sign up",bg="white",fg="blue")
+	signup_.grid(row=5,column=0,columnspan=2)
+	signup_.bind("<Button-1>",__signin__)
 
 	def setfocus(widget):
 		widget.focus_set()
@@ -109,9 +127,8 @@ def signin():
 	password.bind("<Down>",lambda event: setfocus(widget=signin))
 
 	signin.bind("<Up>",lambda event: setfocus(widget=password))
-	signin.bind("<Return>",_signin_)
+	signin.bind("<Return>",signin_)
 
-	window.mainloop()
 
 if __name__ == "__main__":
 	signin()

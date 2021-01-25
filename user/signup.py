@@ -16,7 +16,7 @@ def signup():
 			return True
 		except: 
 			return False
-	window = tk.Tk()
+	window = tk.Toplevel()
 	window.config(bg="white")
 	window.resizable(False,False)
 	window.attributes('-topmost', True)
@@ -97,7 +97,7 @@ def signup():
 	renterpassword.bind('<Control-v>', lambda e: 'break')
 
 	signup = tk.Button(window,font=(font,16),text="Sign Up",command=_signup_,state="disabled")
-	signup.grid(row=6,column=0,columnspan=2,pady=20)
+	signup.grid(row=6,column=0,columnspan=2,pady=(20,0))
 
 	global disabled
 	disabled = True
@@ -144,7 +144,7 @@ def signup():
 			_signup_()
 	signup.bind("<Return>",signup_)
 
-	window.mainloop()
+	
 
 if __name__ == "__main__":
 	signup()
