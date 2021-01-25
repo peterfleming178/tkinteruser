@@ -12,4 +12,4 @@ Config the ```firebase.py``` with your firebase key , then create a fernet key a
 Ongoing
 
 # Version
-1.0.0
+```1.0.0 alpha```
